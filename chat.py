@@ -27,11 +27,10 @@ model.eval()
 
 bot_name = "Sam"
 print("Let's chat! (type 'quit' to exit)")
-while True:
+def get_response(sentence):
     # sentence = "do you use credit cards?"
-    sentence = input("You: ")
     if sentence == "quit":
-        break
+        return
 
     sentence = tokenize(sentence)
     X = bag_of_words(sentence, all_words)
@@ -48,6 +47,8 @@ while True:
     if prob.item() > 0.75:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                print(f"{bot_name}: {random.choice(intent['responses'])}")
+                response = f"{bot_name}: {random.choice(intent['responses'])}"
     else:
-        print(f"{bot_name}: I do not understand...")
+        response = f"{bot_name}: I do not understand..."
+
+    return response
